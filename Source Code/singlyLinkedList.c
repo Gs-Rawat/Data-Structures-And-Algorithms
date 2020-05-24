@@ -69,6 +69,20 @@ void display(nodetype *head) {
 	}
 }
 
+void reverse(nodetype **head, nodetype **tail) {
+	nodetype *current = *head;
+	nodetype *prev = NULL;
+	nodetype *next = NULL;
+
+	while(current != NULL) {
+		next = current->next;  //next will contain the address of the next node
+		current->next = prev; // current->next will point to it's previous node
+		prev = current;
+		current = next; // move current to the next node
+	}
+	*tail = *head; 
+	*head = prev; // as previous contains the address of new first node;
+}
 
 int main()
 {
@@ -81,6 +95,7 @@ int main()
 		printf("2. Display\n");
 		printf("3. Exit\n");
 		printf("4. Pop_Back\n");
+		printf("5. Reverse\n");
 		printf("Enter your choice : ");
 		scanf("%d",&choice);
 		switch(choice) {
@@ -101,7 +116,11 @@ int main()
 			case 4:
 					pop_back(&head, &tail);
 					break;
-
+		   
+			case 5:
+					reverse(&head, &tail);
+					break;
+					
 			default:
 					printf("Enter valid choice\n");
 		}
